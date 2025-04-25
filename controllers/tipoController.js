@@ -49,7 +49,7 @@ const deleteTipo = async (req, res) => {
 }   
 
 const getTipoByCodigo = async (req, res) => {
-    await getTipoByCodigoDB(req.params.codigo)
+    await getTipoByCodigoDB(parseInt(req.params.codigo))
         .then(data => res.status(200).json({
             status : 'success',
             data : data

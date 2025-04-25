@@ -3,7 +3,7 @@ const Local = require('../entities/local');
 
 const getLocaisDB = async () => {
     try {
-        const { rows } = await pool.query('SELECT * FROM locais ORDER BY id');
+        const { rows } = await pool.query('SELECT * FROM locais ORDER BY codigo');
         return rows.map((local) => new Local(local.codigo, local.nome, local.localizacao));
     } catch (error) {
         throw "Erro: " + error;

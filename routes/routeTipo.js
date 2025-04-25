@@ -8,7 +8,7 @@ const routesTipo = new Router();
 routesTipo.route('/tipo')
     .get(getTipos)
     .post(addTipo)
-routesTipo.route('/tipo/:id') 
+routesTipo.route('/tipo/:codigo') 
     .get(getTipoByCodigo)
     .put(updateTipo)
     .delete(deleteTipo)
