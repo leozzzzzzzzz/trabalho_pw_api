@@ -1,18 +1,16 @@
 const { Router } = require('express');
 
-//const {} = require('../controllers/localController');
+const { getLocais, addLocal, updateLocal, deleteLocal, getLocalByCodigo} = require('../controllers/localController');
 
 const routesLocal = new Router();
 
-/*
 routesLocal.route('/local')
     .get(getLocais)
     .post(addLocal)
 
 routesLocal.route('/local/:id')
-    .get(getLocalPorCodigo)
+    .get(getLocalByCodigo)
     .put(updateLocal)
     .delete(deleteLocal)
-*/
 
 module.exports ={ routesLocal };

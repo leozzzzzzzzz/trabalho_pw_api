@@ -1,19 +1,19 @@
 const {  Router } = require('express'); 
 
-//const {} = require('../controllers/passagemController');
+const { getPassagemById, getPassagens, addPassagem, updatePassagem, deletePassagem } = require('../controllers/passagemController');
 
 const routesPassagem = new Router();
 
-/*      
+
 routesPassagem.route('/passagem')
     .get(getPassagens)
     .post(addPassagem)
 
 routesPassagem.route('/passagem/:id')
-    .get(getPassagemPorCodigo)
+    .get(getPassagemById)
     .put(updatePassagem)
     .delete(deletePassagem) 
 
-*/
+
 
 module.exports = { routesPassagem };
