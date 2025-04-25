@@ -12,4 +12,4 @@ routes.use(routesLocal);
 routes.use(routesVeiculo);
 routes.use(routesPassagem);
 
-module.exports = { routes };
+module.exports = routes;
