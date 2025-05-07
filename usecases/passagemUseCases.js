@@ -4,15 +4,19 @@ const Passagem = require("../entities/passagem");
 const getPassagensDB = async () => {
     try {
         const { rows } = await pool.query(
-            "SELECT * FROM passagens ORDER BY id"
+            `SELECT p.id, v.placa, l.localizacao, p.data_hora, p.valor, p.pago
+            FROM passagens p 
+            JOIN veiculos v ON p.veiculo = v.id 
+            JOIN locais l ON p.local = l.codigo
+            ORDER BY p.id`
         );
 
         return rows.map(
             (passagem) =>
                 new Passagem(
                     passagem.id,
-                    passagem.veiculo,
-                    passagem.local,
+                    passagem.placa,
+                    passagem.localizacao,
                     passagem.data_hora,
                     passagem.valor,
                     passagem.pago
@@ -97,7 +101,11 @@ const deletePassagemDB = async (id) => {
 const getPassagemByIdDB = async (id) => {
     try {
         const results = await pool.query(
-            "SELECT * FROM passagens WHERE id = $1",
+            `SELECT p.id, v.placa, l.localizacao, p.data_hora, p.valor, p.pago
+             FROM passagens p 
+             JOIN veiculos v ON p.veiculo = v.id 
+                JOIN locais l ON p.local = l.codigo
+             WHERE p.id = $1`,
             [id]
         );
 
@@ -107,8 +115,8 @@ const getPassagemByIdDB = async (id) => {
             const passagem = results.rows[0];
             return new Passagem(
                 passagem.id,
-                passagem.veiculo,
-                passagem.local,
+                passagem.placa,
+                passagem.localizacao,
                 passagem.data_hora,
                 passagem.valor,
                 passagem.pago

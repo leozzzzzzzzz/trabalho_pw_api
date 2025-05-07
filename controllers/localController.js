@@ -23,7 +23,7 @@ const addLocal = async (req, res) => {
 }
 
 const updateLocal = async (req, res) => {
-    await updateLocalDB(req.body)
+    await updateLocalDB(req.params.codigo, req.body)
         .then(data => res.status(200).json({
             status : 'success',
             message : 'Local atualizado com sucesso',

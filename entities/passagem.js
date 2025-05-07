@@ -1,8 +1,8 @@
 class Passagem {
-     constructor(id, veiculo, local, data_hora, valor, pago) {
+     constructor(id, placa, localizacao, data_hora, valor, pago) {
          this.id = id;
-         this.veiculo = veiculo;
-         this.local = local;
+         this.placa = placa;
+         this.localizacao = localizacao;
          this.data_hora = data_hora;
          this.valor = valor;
          this.pago = pago;

@@ -8,7 +8,7 @@ routesLocal.route('/local')
     .get(getLocais)
     .post(addLocal)
 
-routesLocal.route('/local/:id')
+routesLocal.route('/local/:codigo')
     .get(getLocalByCodigo)
     .put(updateLocal)
     .delete(deleteLocal)

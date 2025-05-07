@@ -25,13 +25,13 @@ const addLocalDB = async (body) => {
     }   
 }
 
-const updateLocalDB = async (codigo) => {
+const updateLocalDB = async (codigo, body) => {
     try {
-        const { codigo, nome, localizacao } = body;
+        const { nome, localizacao } = body;
         const result = await pool.query(
             'UPDATE locais SET nome = $1, localizacao = $2 WHERE codigo = $3 RETURNING *', 
             [nome, localizacao, codigo]
-        )
+        );
 
         if (result.rowCount === 0) {
             throw "Erro: Local não encontrado";
