@@ -23,7 +23,7 @@ const addVeiculo = async (req, res) => {
 }   
 
 const updateVeiculo = async (req, res) => {
-    await updateVeiculoDB(req.body)
+    await updateVeiculoDB(req.params.id, req.body)
         .then(data => res.status(200).json({
             status : 'success',
             message : 'Veículo atualizado com sucesso',
