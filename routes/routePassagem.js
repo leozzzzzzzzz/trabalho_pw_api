@@ -4,15 +4,16 @@ const { getPassagemById, getPassagens, addPassagem, updatePassagem, deletePassag
 
 const routesPassagem = new Router();
 
+const { verificaJWT } = require('../controllers/segurancaController');
 
 routesPassagem.route('/passagem')
-    .get(getPassagens)
-    .post(addPassagem)
+    .get(verificaJWT, getPassagens)
+    .post(verificaJWT, addPassagem)
 
 routesPassagem.route('/passagem/:id')
-    .get(getPassagemById)
-    .put(updatePassagem)
-    .delete(deletePassagem) 
+    .get(verificaJWT, getPassagemById)
+    .put(verificaJWT, updatePassagem)
+    .delete(verificaJWT, deletePassagem) 
 
 
 

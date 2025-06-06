@@ -30,3 +30,11 @@ create table passagens (
    valor numeric (10,2) not null,
    pago boolean not null default false
 );
+
+create table usuarios (
+	email varchar(50) not null primary key, 
+	senha varchar(20) not null, 
+   cpf varchar(11) not null,
+	telefone varchar(14)  not null, 
+	nome varchar(50) not null
+);
