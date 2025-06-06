@@ -36,5 +36,6 @@ create table usuarios (
 	senha varchar(20) not null, 
    cpf varchar(11) not null,
 	telefone varchar(14)  not null, 
-	nome varchar(50) not null
+	nome varchar(50) not null,
+   tipo CHAR(1) not null DEFAULT 'c' CHECK (tipo IN ('c', 'a')) -- comum ou administrador
 );
