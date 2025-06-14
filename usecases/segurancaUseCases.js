@@ -11,7 +11,7 @@ const autenticaUsuarioDB = async (body) => {
             throw "Usuário ou tenha inválidos";
         }
         const usuario = results.rows[0];
-        return new Usuario(usuario.email, usuario.tipo, usuario.telefone, usuario.nome);
+        return new Usuario(usuario.email, usuario.cpf, usuario.telefone, usuario.nome, usuario.tipo);
     } catch (err) {
         throw "Erro ao autenticar o usuário: " + err;
     }    
@@ -19,22 +19,30 @@ const autenticaUsuarioDB = async (body) => {
 
 const cadastraUsuarioDB = async (body) => {
     try {
-        const { email, cpf, telefone, nome, tipo } = body
+        const { email, cpf, telefone, nome, tipo, senha } = body;
         const result = await pool.query(
-            "INSERT INTO usuarios (email, cpf, telefone, nome, tipo) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-            [email, cpf, telefone, nome, tipo]
+            "INSERT INTO usuarios (email, cpf, telefone, nome, tipo, senha) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+            [email, cpf, telefone, nome, tipo, senha]
+        );
+        const usuario = result.rows[0];
+        return new Usuario(
+            usuario.email,
+            usuario.cpf,
+            usuario.telefone,
+            usuario.nome,
+            usuario.tipo
         );
     } catch (err) {
         throw "Erro ao tentar cadastrar o usuário: " + err;
     }
 }
 
-const updateUsuarioDB = async (body) => {
+const updateUsuarioDB = async (cpf, body) => {
     try {
-        const { email, cpf, telefone, nome, tipo } = body;
+        const { email, telefone, nome, tipo } = body;
         const result = await pool.query(
-            "UPDATE usuarios SET email = $1, cpf = $2, telefone = $3, nome = $4, tipo = $5 WHERE email = $1 RETURNING *",
-            [email, cpf, telefone, nome, tipo]
+            "UPDATE usuarios SET email = $1, telefone = $2, nome = $3, tipo = $4 WHERE cpf = $5 RETURNING *",
+            [email, telefone, nome, tipo, cpf]
         );
 
         if (result.rowCount === 0) {
@@ -54,8 +62,26 @@ const updateUsuarioDB = async (body) => {
     }
 }
 
-const getUsuarioDB = async (body) => {
-    //logica para obter os dados
+const getUsuarioDB = async (cpf) => {
+    try {
+        const result = await pool.query(
+            "SELECT * FROM usuarios WHERE cpf = $1",
+            [cpf]
+        );
+        if (result.rowCount === 0) {
+            throw "Usuário não encontrado";
+        }
+        const usuario = result.rows[0];
+        return new Usuario(
+            usuario.email,
+            usuario.cpf,
+            usuario.telefone,
+            usuario.nome,
+            usuario.tipo
+        );
+    } catch (err) {
+        throw "Erro ao tentar obter o usuário: " + err;
+    }
 }
 
 module.exports = {
