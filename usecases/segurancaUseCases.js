@@ -39,10 +39,10 @@ const cadastraUsuarioDB = async (body) => {
 
 const updateUsuarioDB = async (cpf, body) => {
     try {
-        const { email, telefone, nome, tipo } = body;
+        const { email, telefone, nome, tipo, senha } = body;
         const result = await pool.query(
-            "UPDATE usuarios SET email = $1, telefone = $2, nome = $3, tipo = $4 WHERE cpf = $5 RETURNING *",
-            [email, telefone, nome, tipo, cpf]
+            "UPDATE usuarios SET email = $1, telefone = $2, nome = $3, tipo = $4, senha = $5 WHERE cpf = $6 RETURNING *",
+            [email, telefone, nome, tipo, senha, cpf]
         );
 
         if (result.rowCount === 0) {
